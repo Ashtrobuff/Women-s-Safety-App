@@ -53,8 +53,8 @@ export default function App() {
 
   const sendSms = async (message, toNumber) => {
     try {
-      const accountSid = 'ACed4bdf952a823ab5970cbc922c0cea72';
-      const authToken = 'cacd53a257d8d2d8dbe48b18fd2c8bcd';
+      const accountSid = process.env.TWILIO_SID;
+      const authToken = process.env.TWILIO_AUTH_TOKEN;
 
       const authHeader = `Basic ${encode(`${accountSid}:${authToken}`)}`;
       const response = await axios.post(`https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`, {
