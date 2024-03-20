@@ -1,0 +1,68 @@
+import React, { useEffect, useState } from 'react';
+import { View, Button, Alert } from 'react-native';
+import { Accelerometer } from 'expo-sensors';
+import * as Location from 'expo-location';
+import * as MailComposer from 'expo-mail-composer';
+
+const App = () => {
+  const [canShake, setCanShake] = useState(true);
+
+  useEffect(() => {
+    Accelerometer.addListener(handleShake);
+    return () => {
+      Accelerometer.removeAllListeners();
+    };
+  }, []);
+
+  const handleShake = async ({ x, y, z }) => {
+    if (!canShake) return;
+    
+    const acceleration = Math.sqrt(x * x + y * y + z * z);
+    if (acceleration > 2) { // Adjust this threshold as needed
+      setCanShake(false);
+      await getLocationAndSendEmail();
+      setTimeout(() => setCanShake(true), 30000); // Allow shaking after 30 seconds
+    }
+  };
+
+  const getLocationAndSendEmail = async () => {
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permission denied', 'Location permission is required to send the email.');
+        return;
+      }
+
+      const location = await Location.getCurrentPositionAsync({});
+      await sendEmail(location);
+    } catch (error) {
+      Alert.alert('Error', error.message);
+    }
+  };
+
+  const sendEmail = async (location) => {
+    try {
+      const result = await MailComposer.composeAsync({
+        recipients: ['recipient@example.com'],
+        subject: 'Emergency: Help Needed!',
+        body: `I'm in distress! My location is ${location.coords.latitude}, ${location.coords.longitude}`,
+      });
+
+      if (result.status === 'sent') {
+        Alert.alert('Email sent', 'Your distress email has been sent successfully.');
+      } else {
+        Alert.alert('Error', 'Could not send email.');
+      }
+    } catch (error) {
+      Alert.alert('Error', error.message);
+    }
+  };
+
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Button title="Shake for Help" onPress={handleShake} />
+    </View>
+  );
+};
+
+export default App;

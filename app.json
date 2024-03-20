@@ -15,7 +15,13 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "We need your location to provide you with relevant information based on your current location.",
+        "UIBackgroundModes": "location",
+        "NSLocationAlwaysUsageDescription": "We need your location to provide you with relevant information based on your current location."
+      }
+      
     },
     "android": {
       "adaptiveIcon": {
