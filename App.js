@@ -14,7 +14,7 @@ const App = () => {
         <Stack.Screen name="SignUp" component={SignUpScreen} />
         <Stack.Screen name="SignIn" component={SignInScreen}  options={{
     headerStyle: {
-      backgroundColor:'rgb(253 164 175)',
+     
       borderBottomColor:'rgb(253 164 175)'
     }
   }}/>
