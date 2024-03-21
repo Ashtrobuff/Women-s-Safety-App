@@ -12,7 +12,12 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="SignUp">
         <Stack.Screen name="SignUp" component={SignUpScreen} />
-        <Stack.Screen name="SignIn" component={SignInScreen} />
+        <Stack.Screen name="SignIn" component={SignInScreen}  options={{
+    headerStyle: {
+      backgroundColor:'rgb(253 164 175)',
+      borderBottomColor:'rgb(253 164 175)'
+    }
+  }}/>
         <Stack.Screen name="Home" component={HomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>

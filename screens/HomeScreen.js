@@ -3,10 +3,13 @@ import { StyleSheet, Text, View, Button, Alert, Touchable, TouchableOpacity } fr
 import * as Location from 'expo-location';
 import axios from 'axios';
 import { encode } from 'base-64';
+import { Linking } from 'react-native';
+import { TextInput } from 'react-native';
 
-export default function HomeScreen() {
+export default function App() {
   const [location, setLocation] = useState(null);
   const [buttonPressed, setButtonPressed] = useState(false);
+  const [toNumber, setToNumber] = useState('+919372584027')
 
   useEffect(() => {
       
@@ -29,7 +32,7 @@ export default function HomeScreen() {
       Alert.alert('Error', 'Failed to get current location. Please try again.');
     }
   };
-
+  getLocation();
   const handleButtonPress = () => {
     setButtonPressed(true);
   };
@@ -39,7 +42,7 @@ export default function HomeScreen() {
     if (location) {
       try {
         const message = `Help! I feel unsafe. Location: https://maps.apple.com/?ll=${location.coords.latitude},${location.coords.longitude}`;
-        await sendSms(message, '+919372584027'); // Replace with your recipient's phone number
+        await sendSms(message,toNumber); // Replace with your recipient's phone number
         Alert.alert('Message Sent', 'Your distress message with location has been sent successfully.');
      
       } catch (error) {
@@ -54,7 +57,7 @@ export default function HomeScreen() {
   const sendSms = async (message, toNumber) => {
     try {
       const accountSid = 'ACed4bdf952a823ab5970cbc922c0cea72';
-      const authToken = 'cacd53a257d8d2d8dbe48b18fd2c8bcd';
+      const authToken = 'a8fa370e4bd4d68e377fa6b78f2b55d4';
 
       const authHeader = `Basic ${encode(`${accountSid}:${authToken}`)}`;
       const response = await axios.post(`https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`, {
@@ -75,24 +78,32 @@ export default function HomeScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text className="font-bold text-size-20 font-extrabold">Personal Safety App</Text>
-      <Text style={styles.subtitle}>Press and hold the button if you feel unsafe.</Text>
-      <TouchableOpacity className="bg-blue-400 py-10 px-20 border-r-4" 
-   
+    <View style={styles.container} className="bg-purple-400">
+        <TouchableOpacity><Text>Change Number</Text></TouchableOpacity>
+        <TextInput
+        style={styles.input}
+        onChangeText={setToNumber}
+        value={toNumber}
+        placeholder="Enter recipient's phone number"
+      />
+      <Text style={styles.title} className=" text-white mb-12 text-center">"Best Protection a woman can have is courage"</Text>
+      <Text style={styles.subtitle} className=" text-white mt-12">Press and hold the button if you feel unsafe.</Text>
+      <View className="fixed mt h-64 w-64 rounded-full bg-white opacity-40 " style={{zIndex:-1}}></View>
+     <TouchableOpacity className=" absolute mt- h-52 w-52 rounded-full bg-white border-8 border-opacity-5" style={{zIndex:20}} 
         title="Press and Hold"
         onPress={handleButtonRelease}
       //  onPressOut={handleButtonRelease}
         disabled={buttonPressed}
       />
-      <View className="text-red-400">
-        <Text>Test ITem</Text>
-      </View>
-      {location && (
-        <Text style={styles.locationText}>
-          Your current location: {location.coords.latitude}, {location.coords.longitude}
-        </Text>
+     
+     {location && (
+        <TouchableOpacity onPress={() => Linking.openURL(`https://maps.apple.com/?ll=${location.coords.latitude},${location.coords.longitude}`)}>
+          <Text style={styles.locationText} className="font-bold text-white">
+            View location on map
+          </Text>
+        </TouchableOpacity>
       )}
+      
     </View>
   );
 }
@@ -108,7 +119,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    
   },
   title: {
     fontSize: 24,

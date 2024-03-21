@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet } from 'react-native';
-import { createUserWithEmailAndPassword } from 'firebase/auth'; // Import createUserWithEmailAndPassword from firebase auth
-import { getAuth } from 'firebase/auth'; // Import getAuth from firebase auth
-
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
+import { Image } from 'react-native';
+import { Text } from 'react-native';
 const SignUpScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const auth = getAuth(); // Get the auth instance
+  const auth = getAuth();
 
   const signUp = async () => {
     try {
@@ -18,25 +19,26 @@ const SignUpScreen = ({ navigation }) => {
   };
 
   return (
-    <View className="flex-1 justify-center align-middle px-20 bg-purple-300">
-        <View className=' w-86 px-10  shadow-lg bg-white rounded-xl ' style={{height:"200px"}}>
+    <View style={styles.container} className="bg-purple-300">
+      
+      <View style={styles.card}>
+      <Image source={require('../assets/images/bg.png')} className=" rounded-lg rounded-b-none" style={{width:300,height:320}} />
         <TextInput
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        style={styles.input}
-      />
-      <TextInput
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        style={styles.input}
-      />
-      <Button title="Sign Up" onPress={signUp} />
-      <Button title="Sign In" onPress={() => navigation.navigate('SignIn')} />
-        </View>
-   
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
+          style={styles.input}
+        />
+        <TextInput
+          placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+          style={styles.input}
+        />
+        <Button title="Sign Up" onPress={signUp} />
+        <Button title="Sign In" onPress={() => navigation.navigate('SignIn')} />
+      </View>
     </View>
   );
 };
@@ -46,10 +48,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 20, // Add horizontal padding for better aesthetics
+    
+  },
+  card: {
+    width: '80%',
+    backgroundColor: '#ffffff',
+    padding: 20,
+    borderRadius: 10,
+    elevation: 5,
   },
   input: {
-    width: '100%', // Adjust input width to fit container width
     marginBottom: 10,
     borderBottomWidth: 1,
     padding: 10,
