@@ -6,6 +6,8 @@ import { Image } from 'react-native';
 import { ImageBackground } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { Text } from 'react-native';
+import { Modal } from 'react-native';
+import { CallSummariesInstance } from 'twilio/lib/rest/insights/v1/callSummaries';
 const SignInScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,8 +27,9 @@ const SignInScreen = ({ navigation }) => {
   };
 
   return (
+    
     <ImageBackground source={require('../assets/images/wbg.png')} resizeMode={'cover'} style={{flex:1,justifyContent:'center'}}>
-        
+        <ScrollView className="mt-5">
         <View style={styles.container}>
     
     <Image source={require('../assets/images/bg.png')} className="w-84 rounded-lg rounded-b-none" style={{width:310,height:320}} />
@@ -49,8 +52,9 @@ const SignInScreen = ({ navigation }) => {
     <TouchableOpacity title="Sign Up" disabled={loading} className="h-10 w-full bg-blue-300 items-center justify-center rounded-lg"onPress={signIn}><Text>Sign In</Text></TouchableOpacity>
   </View>
 </View>
-       
+</ScrollView>
 </ImageBackground>
+
    
   );
 };

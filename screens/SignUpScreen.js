@@ -21,7 +21,7 @@ const SignUpScreen = ({ navigation }) => {
   return (
     
       <ImageBackground source={require('../assets/images/wbg.png')} resizeMode={'cover'} style={{flex:1,justifyContent:'center'}}>
-       <View style={styles.container} >
+        <ScrollView  contentContainerStyle={{justifyContent:'center'}} className="mt-5"><View style={styles.container} keyboardShouldPersistTaps="handled"  >
       <Image source={require('../assets/images/bgt.png')} className="rounded-lg rounded-b-none" style={{width:310,height:320}} />
       <View style={styles.card} className="rounded-t-none">
       
@@ -39,9 +39,17 @@ const SignUpScreen = ({ navigation }) => {
           style={styles.input}
         />
         <TouchableOpacity title="Sign Up"  className="h-10 w-full bg-blue-300 items-center justify-center rounded-lg"onPress={signUp}><Text>Sign Up</Text></TouchableOpacity>
-        <TouchableOpacity title="Sign in" onPressIn={()=>{navigation.navigate('SignIn')}} className="h-10 w-full bg-blue-300 items-center justify-center rounded-lg mt-5" sx><Text>Sign In</Text></TouchableOpacity>
+        <TouchableOpacity
+  title="Sign in"
+  onPress={() => {
+    navigation.navigate('SignIn', { isModal: true });
+  }}
+  className="h-10 w-full bg-blue-300 items-center justify-center rounded-lg mt-5"
+>
+  <Text>Sign In</Text>
+</TouchableOpacity>
       </View>
-    </View>
+    </View></ScrollView>
     </ImageBackground>
 
     
@@ -56,6 +64,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     
   },
+  
   card: {
     width: '80%',
     backgroundColor: '#ffffff',
