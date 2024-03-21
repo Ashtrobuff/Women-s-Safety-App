@@ -78,23 +78,26 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container} className="bg-purple-400">
-        <TouchableOpacity><Text>Change Number</Text></TouchableOpacity>
+    <View style={styles.container} className=" flex align-middle justify-center bg-purple-400">
+      <View className="mb-5 font-3xl"><TouchableOpacity className="text-white "><Text className="text-white font-bold text-lg">Change Number</Text></TouchableOpacity>
         <TextInput
         style={styles.input}
         onChangeText={setToNumber}
         value={toNumber}
         placeholder="Enter recipient's phone number"
-      />
+        className="mt-5 text-white"
+      /></View>
+        
       <Text style={styles.title} className=" text-white mb-12 text-center">"Best Protection a woman can have is courage"</Text>
-      <Text style={styles.subtitle} className=" text-white mt-12">Press and hold the button if you feel unsafe.</Text>
-      <View className="fixed mt h-64 w-64 rounded-full bg-white opacity-40 " style={{zIndex:-1}}></View>
-     <TouchableOpacity className=" absolute mt- h-52 w-52 rounded-full bg-white border-8 border-opacity-5" style={{zIndex:20}} 
+      <Text style={styles.subtitle} className=" text-white mt-12 font-extrabold">Press and hold the button if you feel unsafe.</Text>
+   
+      <TouchableOpacity className="mt-2 h-52 w-52 rounded-full bg-white border-8 border-opacity-5" style={{zIndex:20}} 
         title="Press and Hold"
         onPress={handleButtonRelease}
       //  onPressOut={handleButtonRelease}
         disabled={buttonPressed}
-      />
+  />
+     {/*   <View className="fixed mt h-64 w-64 rounded-full bg-white opacity-40 " style={{zIndex:-1}}></View>*/}
      
      {location && (
         <TouchableOpacity onPress={() => Linking.openURL(`https://maps.apple.com/?ll=${location.coords.latitude},${location.coords.longitude}`)}>
