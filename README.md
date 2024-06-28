@@ -1,7 +1,7 @@
-# 👩🏻‍🎤 A Distress call app for women (or anybody!) who want to beam their location for help!
+# 👩🏻‍🎤 A Distress call app for women (or anybody!) who want to beam their location for help!🆘
 #### requires carrier access.
 
-### features:
+### 🚨features:
 ##### 🏄🏼‍♀️ user can hold distress button till they feel safe, and release on the first signs of suspicion their location is transmitted to their loved one.
 ##### 🏄🏼‍♀️ user consent while sending unneccessary pings to prevent accidental triggers (distress call automatically goes if ignored).
 <img width="363" alt="Screenshot 2024-06-28 at 10 14 45 AM" src="https://github.com/Ashtrobuff/Women-s-Safety-App/assets/93227004/567ebe04-ec5d-4bed-8491-a900e940e843">
